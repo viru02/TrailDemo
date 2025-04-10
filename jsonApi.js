@@ -51,4 +51,17 @@ app.delete('/items/delete/:id', (req, res) => {
       }
 });
 
+app.delete('/items/delete/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = jsondata.findIndex((item) => item.id === id);
+  if (index === -1) {
+    res.status(404).json({ error: 'Item not found' });
+  } else {
+    const deletedItem = jsondata.splice(index, 1);
+    res.json(deletedItem[0]);
+  }
+});
+
+
 module.exports = app;
+
